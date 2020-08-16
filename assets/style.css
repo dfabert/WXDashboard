@@ -1,0 +1,23 @@
+#cities {
+    float: left;
+    width: 25%;
+    background-color: blue;
+}
+
+#wxinfo {
+    background-color: chartreuse;
+    float: right;
+    width: 75%;
+}
+
+#current {
+
+}
+
+#forecast {
+
+}
+
+.forecastCard{
+    
+}
