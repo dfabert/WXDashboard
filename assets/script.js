@@ -1,85 +1,125 @@
-var APIKey =  'd457bca459c78269087e34938cc72c1d';
-var cityName = 'london';
-var lat = 0;
-var long = 0;
-
-// api.openweathermap.org/data/2.5/weather?q={city name}&appid={your api key} //
 
 
+//This function generates the forecast
+function generateForecast(cityname){
 
-var URL = "https://api.openweathermap.org/data/2.5/onecall?lat=33.441792&lon=-94.037689"
+    console.log('Searching now for ' + cityName);
+
+    var APIKey =  'd457bca459c78269087e34938cc72c1d';
+
+    var URL = "https://api.openweathermap.org/data/2.5/weather?"
+            + "q=" + cityName
             + '&appid=' + APIKey;
-  console.log(URL);
   
   $.ajax({
        url: URL,
        method: "GET"
      }).then(function(response) {
-        console.log(response);
+        var lat = response.coord.lat;
+        var long = response.coord.lon;
 
-        //Pulling City, Conditions Icon, Temperature, Humidity, Wind Speed
-        var icon = response.current.weather[0].icon;
-        var temp = response.current.temp;
-        var humid = response.current.humidity;
-        var windSpeed = response.current.wind_speed;
-        var uvi = response.current.uvi;
+        console.log(lat, long);
 
-        var currentCard = $('<div>');
-        currentCard.addClass('currentCard');
-
-        var citySpot = $('<h4>');
-        citySpot.text('Indianapolis');
+        var URL = "https://api.openweathermap.org/data/2.5/onecall?"
+                    + "lat=" + lat
+                    + "&lon=" + long
+                    + '&appid=' + APIKey;
         
-        var iconSpot = $('<div>');
-        iconSpot.text(icon);
+        $.ajax({
+            url: URL,
+            method: "GET"
+            }).then(function(response) {
 
-        var tempSpot = $('<div>');
-        tempSpot.text('Temperature:  ' + temp);
+                //Pulling City, Conditions Icon, Temperature, Humidity, Wind Speed
+                var icon = response.current.weather[0].icon;
+                var temp = response.current.temp;
+                var humid = response.current.humidity;
+                var windSpeed = response.current.wind_speed;
+                var uvi = response.current.uvi;
 
-        var humidSpot = $('<div>');
-        humidSpot.text('Relative Humidity:  ' + humid);
+                var currentCard = $('<div>');
+                currentCard.addClass('currentCard');
 
-        var windSpeedSpot = $('<div>');
-        windSpeedSpot.text('Wind Speed:  ' + windSpeed);
+                var citySpot = $('<h4>');
+                citySpot.text(cityName);
+                
+                var iconSpot = $('<div>');
+                iconSpot.text(icon);
 
-        var uviSpot = $('<div>');
-        uviSpot.text('UV Index:    ' + uvi);
+                var tempSpot = $('<div>');
+                tempSpot.text('Temperature:  ' + temp);
 
-        $(currentCard).append(citySpot);
-        $(currentCard).append(iconSpot);
-        $(currentCard).append(tempSpot);
-        $(currentCard).append(humidSpot);
-        $(currentCard).append(windSpeedSpot);
-        $(currentCard).append(uviSpot);
+                var humidSpot = $('<div>');
+                humidSpot.text('Relative Humidity:  ' + humid);
 
-        $('#current').append(currentCard);
+                var windSpeedSpot = $('<div>');
+                windSpeedSpot.text('Wind Speed:  ' + windSpeed);
 
-        //Pull forecast data
-        for(var i = 1; i < 6; i++){
-            var fcstIcon = response.daily[i].weather[0].icon;
-            var fcstTemp = response.daily[i].temp.day;
-            var fcstHumid = response.daily[i].humidity;
+                var uviSpot = $('<div>');
+                uviSpot.text('UV Index:    ' + uvi);
 
-            var forecastCard = $('<div>');
-            currentCard.addClass('forecastCard');
+                $(currentCard).append(citySpot);
+                $(currentCard).append(iconSpot);
+                $(currentCard).append(tempSpot);
+                $(currentCard).append(humidSpot);
+                $(currentCard).append(windSpeedSpot);
+                $(currentCard).append(uviSpot);
 
-            var fcstIconSpot = $('<div>');
-            fcstIconSpot.text(fcstIcon);
+                $('#current').append(currentCard);
 
-            var fcstTempSpot = $('<div>');
-            fcstTempSpot.text('Temperature:  ' + fcstTemp);
+                //Pull forecast data
+                for(var i = 1; i < 6; i++){
+                    var fcstIcon = response.daily[i].weather[0].icon;
+                    var fcstTemp = response.daily[i].temp.day;
+                    var fcstHumid = response.daily[i].humidity;
 
-            var fcstHumidSpot = $('<div>');
-            fcstHumidSpot.text('Relative Humidity:  ' + fcstHumid);
+                    var forecastCard = $('<div>');
+                    currentCard.addClass('forecastCard');
 
-            $(forecastCard).append(fcstIconSpot);
-            $(forecastCard).append(fcstTempSpot);
-            $(forecastCard).append(fcstHumidSpot);
+                    var fcstIconSpot = $('<div>');
+                    fcstIconSpot.text(fcstIcon);
 
-            $('#forecast').append(forecastCard)
-            
-        }
-        
-    });
+                    var fcstTempSpot = $('<div>');
+                    fcstTempSpot.text('Temperature:  ' + fcstTemp);
 
+                    var fcstHumidSpot = $('<div>');
+                    fcstHumidSpot.text('Relative Humidity:  ' + fcstHumid);
+
+                    $(forecastCard).append(fcstIconSpot);
+                    $(forecastCard).append(fcstTempSpot);
+                    $(forecastCard).append(fcstHumidSpot);
+
+                    $('#forecast').append(forecastCard)
+                    
+                }
+                
+            });
+
+
+     })
+}
+
+//Page will load with Indianpolis Data (would like to change this to the location of the user)
+var cityName = 'Indianapolis';
+$(document).ready(generateForecast('Indianapolis'));
+
+//Listen for new city
+$('button').on('click', function(event,){
+    event.preventDefault();
+    var cityName = document.getElementById('cityName').value;
+    console.log('Adding ' + cityName + ' to City list');
+
+    //Create new button
+    var cityButton = $('<button>');
+    cityButton.addClass('cityButton');
+    cityButton.text(cityName);
+    $('#cities').append(cityButton);
+
+    //Clear section for new information
+    $('#current').empty();
+    $('#forecast').empty();
+
+    //Send Back to Generate New Forecast
+    generateForecast(cityName);
+});
  
