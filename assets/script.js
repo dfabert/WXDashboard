@@ -35,7 +35,7 @@ function generateForecast(cityName){
 
                 //Pulling City, Conditions Icon, Temperature, Humidity, Wind Speed
                 var icon = response.current.weather[0].icon;
-                var temp = response.current.temp;
+                var temp = Math.round(100-(response.current.temp - 273.15)*9/5+32);
                 var humid = response.current.humidity;
                 var windSpeed = response.current.wind_speed;
                 var uvi = response.current.uvi;
@@ -50,10 +50,10 @@ function generateForecast(cityName){
                 iconSpot.text(icon);
 
                 var tempSpot = $('<div>');
-                tempSpot.text('Temperature:  ' + temp);
+                tempSpot.text('Temperature:  ' + temp + '\xB0' + 'F');
 
                 var humidSpot = $('<div>');
-                humidSpot.text('Relative Humidity:  ' + humid);
+                humidSpot.text('Relative Humidity:  ' + humid + '%');
 
                 var windSpeedSpot = $('<div>');
                 windSpeedSpot.text('Wind Speed:  ' + windSpeed);
@@ -73,7 +73,7 @@ function generateForecast(cityName){
                 //Pull forecast data
                 for(var i = 1; i < 6; i++){
                     var fcstIcon = response.daily[i].weather[0].icon;
-                    var fcstTemp = response.daily[i].temp.day;
+                    var fcstTemp = Math.round(100-(response.daily[i].temp.day - 273.15)*9/5+32);
                     var fcstHumid = response.daily[i].humidity;
 
                     var forecastCard = $('<div>');
@@ -83,10 +83,10 @@ function generateForecast(cityName){
                     fcstIconSpot.text(fcstIcon);
 
                     var fcstTempSpot = $('<div>');
-                    fcstTempSpot.text('Temperature:  ' + fcstTemp);
+                    fcstTempSpot.text('Temperature:  ' + fcstTemp + '\xB0' + 'F');
 
                     var fcstHumidSpot = $('<div>');
-                    fcstHumidSpot.text('Relative Humidity:  ' + fcstHumid);
+                    fcstHumidSpot.text('Relative Humidity:  ' + fcstHumid + '%');
 
                     $(forecastCard).append(fcstIconSpot);
                     $(forecastCard).append(fcstTempSpot);
