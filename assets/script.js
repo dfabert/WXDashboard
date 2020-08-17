@@ -33,7 +33,13 @@ function generateForecast(cityName){
                 $('#current').empty();
                 $('#forecast').empty();
 
-                //Pulling City, Conditions Icon, Temperature, Humidity, Wind Speed
+                //Pulling Time, Conditions Icon, Temperature, Humidity, Wind Speed
+                
+                var currDate = new Date((response.current.dt)*1000)
+                    var weekDay = currDate.getDay();
+                    var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                var currDay = daysOfWeek[weekDay];
+                
                 var icon = response.current.weather[0].icon;
                 var temp = Math.round(100-(response.current.temp - 273.15)*9/5+32);
                 var humid = response.current.humidity;
@@ -45,10 +51,14 @@ function generateForecast(cityName){
 
                 var citySpot = $('<h4>');
                 citySpot.text(cityName);
-                
-                var iconSpot = $('<div>');
-                iconSpot.text(icon);
 
+                var timeSpot = $('<h5>');
+                timeSpot.text(currDay);
+                
+                //http://openweathermap.org/img/wn/10d@2x.png
+                var iconSpot = $('<img>');
+                iconSpot.attr('src','http://openweathermap.org/img/wn/' + icon + '@2x.png');
+                  
                 var tempSpot = $('<div>');
                 tempSpot.text('Temperature:  ' + temp + '\xB0' + 'F');
 
@@ -62,6 +72,7 @@ function generateForecast(cityName){
                 uviSpot.text('UV Index:    ' + uvi);
 
                 $(currentCard).append(citySpot);
+                $(currentCard).append(timeSpot);
                 $(currentCard).append(iconSpot);
                 $(currentCard).append(tempSpot);
                 $(currentCard).append(humidSpot);
@@ -72,6 +83,9 @@ function generateForecast(cityName){
 
                 //Pull forecast data
                 for(var i = 1; i < 6; i++){
+                    var fcstDate = new Date((response.daily[i].dt)*1000)
+                        var weekDay = fcstDate.getDay();
+                    var fcstDay = daysOfWeek[weekDay];
                     var fcstIcon = response.daily[i].weather[0].icon;
                     var fcstTemp = Math.round(100-(response.daily[i].temp.day - 273.15)*9/5+32);
                     var fcstHumid = response.daily[i].humidity;
@@ -79,8 +93,11 @@ function generateForecast(cityName){
                     var forecastCard = $('<div>');
                     currentCard.addClass('forecastCard');
 
-                    var fcstIconSpot = $('<div>');
-                    fcstIconSpot.text(fcstIcon);
+                    var fcstTimeSpot = $('<h4>');
+                    fcstTimeSpot.text(fcstDay);
+
+                    var fcstIconSpot = $('<img>');
+                    fcstIconSpot.attr('src','http://openweathermap.org/img/wn/' + fcstIcon + '@2x.png');
 
                     var fcstTempSpot = $('<div>');
                     fcstTempSpot.text('Temperature:  ' + fcstTemp + '\xB0' + 'F');
@@ -88,6 +105,7 @@ function generateForecast(cityName){
                     var fcstHumidSpot = $('<div>');
                     fcstHumidSpot.text('Relative Humidity:  ' + fcstHumid + '%');
 
+                    $(forecastCard).append(fcstTimeSpot);
                     $(forecastCard).append(fcstIconSpot);
                     $(forecastCard).append(fcstTempSpot);
                     $(forecastCard).append(fcstHumidSpot);
