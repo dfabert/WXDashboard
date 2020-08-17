@@ -1,8 +1,8 @@
 
 
 //This function generates the forecast
-function generateForecast(cityname){
-
+function generateForecast(cityName){
+    
     console.log('Searching now for ' + cityName);
 
     var APIKey =  'd457bca459c78269087e34938cc72c1d';
@@ -29,6 +29,9 @@ function generateForecast(cityname){
             url: URL,
             method: "GET"
             }).then(function(response) {
+
+                $('#current').empty();
+                $('#forecast').empty();
 
                 //Pulling City, Conditions Icon, Temperature, Humidity, Wind Speed
                 var icon = response.current.weather[0].icon;
@@ -101,25 +104,41 @@ function generateForecast(cityname){
 
 //Page will load with Indianpolis Data (would like to change this to the location of the user)
 var cityName = 'Indianapolis';
-$(document).ready(generateForecast('Indianapolis'));
+$(document).ready(generateForecast(cityName));
 
 //Listen for new city
-$('button').on('click', function(event,){
+$('#addCity').on('click', function(event)  {
     event.preventDefault();
-    var cityName = document.getElementById('cityName').value;
-    console.log('Adding ' + cityName + ' to City list');
+    var cityName = $('#cityInput').val();
+    console.log('You have added ' + cityName);
 
     //Create new button
     var cityButton = $('<button>');
     cityButton.addClass('cityButton');
+    cityButton.attr('data-city', cityName);
     cityButton.text(cityName);
     $('#cities').append(cityButton);
-
-    //Clear section for new information
-    $('#current').empty();
-    $('#forecast').empty();
-
+    
+    
     //Send Back to Generate New Forecast
     generateForecast(cityName);
+})
+
+//Listen for previous cities
+$(document).on('click', '.cityButton',function(event){
+    var cityName = $(this).attr('data-city');
+    console.log('Recalling Forecast for ' + cityName);
+    generateForecast(cityName);
 });
+
+
+
+
+
+
+
+
+
+
+
  
