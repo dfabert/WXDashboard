@@ -60,7 +60,8 @@ function generateForecast(cityName){
                 iconSpot.attr('src','http://openweathermap.org/img/wn/' + icon + '@2x.png');
                   
                 var tempSpot = $('<div>');
-                tempSpot.text('Temperature:  ' + temp + '\xB0' + 'F');
+                tempSpot.text(temp + '\xB0' + 'F');
+                tempSpot.attr('id', 'temp');
 
                 var humidSpot = $('<div>');
                 humidSpot.text('Relative Humidity:  ' + humid + '%');
@@ -91,16 +92,18 @@ function generateForecast(cityName){
                     var fcstHumid = response.daily[i].humidity;
 
                     var forecastCard = $('<div>');
-                    currentCard.addClass('forecastCard');
+                    forecastCard.addClass('forecastCard');
 
                     var fcstTimeSpot = $('<h4>');
                     fcstTimeSpot.text(fcstDay);
 
+                    //http://openweathermap.org/img/wn/10d@2x.png
                     var fcstIconSpot = $('<img>');
                     fcstIconSpot.attr('src','http://openweathermap.org/img/wn/' + fcstIcon + '@2x.png');
 
                     var fcstTempSpot = $('<div>');
-                    fcstTempSpot.text('Temperature:  ' + fcstTemp + '\xB0' + 'F');
+                    fcstTempSpot.text(fcstTemp + '\xB0' + 'F');
+                    fcstTempSpot.attr('id', 'temp');
 
                     var fcstHumidSpot = $('<div>');
                     fcstHumidSpot.text('Relative Humidity:  ' + fcstHumid + '%');
