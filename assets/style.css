@@ -5,21 +5,17 @@
 }
 
 #wxinfo {
-    float: right;
     width: 75%;
+    float: right
 }
 
 #current {
-
+    background-color: lightblue;
+    text-align: center;
 }
 
 #forecast {
-
-}
-
-.currentCard{
-    width: 300px;
-    background-color: lightblue;
+    text-align: center;
 }
 
 .forecastCard{
@@ -30,17 +26,13 @@
 }
 
 img{
-    float: left;
+    
 }
 
 #temp {
     font-size: 50px;
 }
 
-h4 {
-    text-align: center;
-}
-
-h5 {
+h1, h4, h5 {
     text-align: center;
 }

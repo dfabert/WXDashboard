@@ -46,9 +46,6 @@ function generateForecast(cityName){
                 var windSpeed = response.current.wind_speed;
                 var uvi = response.current.uvi;
 
-                var currentCard = $('<div>');
-                currentCard.addClass('currentCard');
-
                 var citySpot = $('<h4>');
                 citySpot.text(cityName);
 
@@ -72,15 +69,13 @@ function generateForecast(cityName){
                 var uviSpot = $('<div>');
                 uviSpot.text('UV Index:    ' + uvi);
 
-                $(currentCard).append(citySpot);
-                $(currentCard).append(timeSpot);
-                $(currentCard).append(iconSpot);
-                $(currentCard).append(tempSpot);
-                $(currentCard).append(humidSpot);
-                $(currentCard).append(windSpeedSpot);
-                $(currentCard).append(uviSpot);
-
-                $('#current').append(currentCard);
+                $('#current').append(citySpot);
+                $('#current').append(timeSpot);
+                $('#current').append(iconSpot);
+                $('#current').append(tempSpot);
+                $('#current').append(humidSpot);
+                $('#current').append(windSpeedSpot);
+                $('#current').append(uviSpot);
 
                 //Pull forecast data
                 for(var i = 1; i < 6; i++){
@@ -106,7 +101,7 @@ function generateForecast(cityName){
                     fcstTempSpot.attr('id', 'temp');
 
                     var fcstHumidSpot = $('<div>');
-                    fcstHumidSpot.text('Relative Humidity:  ' + fcstHumid + '%');
+                    fcstHumidSpot.text('Humidity:  ' + fcstHumid + '%');
 
                     $(forecastCard).append(fcstTimeSpot);
                     $(forecastCard).append(fcstIconSpot);
@@ -140,7 +135,12 @@ $('#addCity').on('click', function(event)  {
     cityButton.text(cityName);
     $('#cities').append(cityButton);
     
-    
+    //Put city in local storage
+    var storedCities = JSON.parse(localStorage.getItem('storedCities')) || [];
+    console.log(storedCities);
+    storedCities.push(cityName);
+    localStorage.setItem('storedCities',JSON.stringify(storedCities));
+
     //Send Back to Generate New Forecast
     generateForecast(cityName);
 })
@@ -152,6 +152,22 @@ $(document).on('click', '.cityButton',function(event){
     generateForecast(cityName);
 });
 
+//function to put buttons for all recalled cities from locatl storage
+function recallCities() {
+    var storedCities = JSON.parse(localStorage.getItem('storedCities')) || [];
+
+    for (var i = 0; i<storedCities.length; i++){
+        cityName = storedCities[i];
+        var cityButton = $('<button>');
+        cityButton.addClass('cityButton');
+        cityButton.attr('data-city', cityName);
+        cityButton.text(cityName);
+        $('#cities').append(cityButton);
+    }
+    
+}
+
+recallCities();
 
 
 
