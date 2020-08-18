@@ -1,7 +1,6 @@
 #cities {
     float: left;
     width: 25%;
-    background-color: blue;
 }
 
 #wxinfo {
@@ -25,8 +24,11 @@
     margin: 1%;
 }
 
-img{
-    
+button{
+    width: 90%;
+    padding: 3px;
+    background-color: white;
+    margin: 2px;
 }
 
 #temp {
