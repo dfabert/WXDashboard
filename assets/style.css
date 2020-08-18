@@ -1,3 +1,7 @@
+body{
+    background-color: lightblue;
+}
+
 #cities {
     float: left;
     width: 25%;
@@ -9,13 +13,23 @@
 }
 
 #current {
-    background-color: lightblue;
     text-align: center;
+    align-items: center;
+    background-image: url("background.jpg");
+}
+
+.currentCard{
+    background-color: rgba(0, 233, 250, 0.8);
+    margin: 1%;
+    width: fit-content;
+    margin: auto;
 }
 
 #forecast {
     text-align: center;
 }
+
+
 
 .forecastCard{
     background-color: lightgreen;
@@ -39,6 +53,12 @@ h1, h4, h5 {
     text-align: center;
 }
 
+h3 {
+    background-color: darkgray;
+    text-align: center;
+    margin: 3px;
+}
+
 #extremelyHighUV{
     background-color: purple;
     color: white;
@@ -47,6 +67,7 @@ h1, h4, h5 {
 #veryHighUV{
     background-color: red;
     color: white;
+    align-self: auto;
 }
 
 #highUV{

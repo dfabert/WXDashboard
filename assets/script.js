@@ -46,6 +46,9 @@ function generateForecast(cityName){
                 var windSpeed = response.current.wind_speed;
                 var uvi = response.current.uvi;
 
+                var currentCard = $('<div>');
+                currentCard.addClass('currentCard');
+
                 var citySpot = $('<h4>');
                 citySpot.text(cityName);
 
@@ -85,13 +88,17 @@ function generateForecast(cityName){
                     }
                 
 
-                $('#current').append(citySpot);
-                $('#current').append(timeSpot);
-                $('#current').append(iconSpot);
-                $('#current').append(tempSpot);
-                $('#current').append(humidSpot);
-                $('#current').append(windSpeedSpot);
-                $('#current').append(uviSpot);
+                $(currentCard).append(citySpot);
+                $(currentCard).append(timeSpot);
+                $(currentCard).append(iconSpot);
+                $(currentCard).append(tempSpot);
+                $(currentCard).append(humidSpot);
+                $(currentCard).append(windSpeedSpot);
+                $(currentCard).append(uviSpot);
+
+                $('#current').append(currentCard);
+
+
 
                 //Pull forecast data
                 for(var i = 1; i < 6; i++){
