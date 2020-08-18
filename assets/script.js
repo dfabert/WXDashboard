@@ -5,6 +5,9 @@ function generateForecast(cityName){
     
     console.log('Searching now for ' + cityName);
 
+    //saving last searched to local storage for recall on page load
+    localStorage.setItem('lastSearched', cityName);
+
     var APIKey =  'd457bca459c78269087e34938cc72c1d';
 
     var URL = "https://api.openweathermap.org/data/2.5/weather?"
@@ -142,7 +145,7 @@ function generateForecast(cityName){
 }
 
 //Page will load with Indianpolis Data (would like to change this to the location of the user)
-var cityName = 'Indianapolis';
+var cityName = localStorage.getItem('lastSearched') || 'Indianapolis';
 $(document).ready(generateForecast(cityName));
 
 //Listen for new city
@@ -164,6 +167,7 @@ $('#addCity').on('click', function(event)  {
     storedCities.push(cityName);
     localStorage.setItem('storedCities',JSON.stringify(storedCities));
 
+
     //Send Back to Generate New Forecast
     generateForecast(cityName);
 })
@@ -175,7 +179,7 @@ $(document).on('click', '.cityButton',function(event){
     generateForecast(cityName);
 });
 
-//function to put buttons for all recalled cities from locatl storage
+//function to put buttons for all recalled cities from local storage
 function recallCities() {
     var storedCities = JSON.parse(localStorage.getItem('storedCities')) || [];
 
