@@ -41,7 +41,7 @@ function generateForecast(cityName){
                 var currDay = daysOfWeek[weekDay];
                 
                 var icon = response.current.weather[0].icon;
-                var temp = Math.round(100-(response.current.temp - 273.15)*9/5+32);
+                var temp = Math.round((response.current.temp - 273.15)*9/5+32);
                 var humid = response.current.humidity;
                 var windSpeed = response.current.wind_speed;
                 var uvi = response.current.uvi;
