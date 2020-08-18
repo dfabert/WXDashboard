@@ -68,6 +68,22 @@ function generateForecast(cityName){
 
                 var uviSpot = $('<div>');
                 uviSpot.text('UV Index:    ' + uvi);
+                    if(uvi >= 11){
+                        uviSpot.attr('id', 'extremelyHighUV');
+                    }
+                    else if(uvi >= 8){
+                        uviSpot.attr('id', 'veryHighUV');
+                    }
+                    else if(uvi >= 6){
+                        uviSpot.attr('id', 'highUV');
+                    }
+                    else if(uvi >= 3){
+                        uviSpot.attr('id', 'mediumUV');
+                    }
+                    else if(uvi >= 1){
+                        uviSpot.attr('id', 'lowUV');
+                    }
+                
 
                 $('#current').append(citySpot);
                 $('#current').append(timeSpot);
@@ -166,7 +182,6 @@ function recallCities() {
     }
     
 }
-
 recallCities();
 
 

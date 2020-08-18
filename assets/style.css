@@ -36,3 +36,27 @@ img{
 h1, h4, h5 {
     text-align: center;
 }
+
+#extremelyHighUV{
+    background-color: purple;
+    color: white;
+}
+
+#veryHighUV{
+    background-color: red;
+    color: white;
+}
+
+#highUV{
+    background-color: orange;
+    color: white;
+}
+
+#mediumUV{
+    background-color: rgba(246, 250, 0, 0.5);
+}
+
+#lowUV{
+    background-color: rgba(0, 250, 0, 0.5);;
+    color: white;
+}
