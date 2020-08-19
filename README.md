@@ -12,3 +12,5 @@ Future versions will include the following:
 -Better styling
 -Responsive design
 -icons to remove each city from the list
+
+![Deployed Image](https://dfabert.github.io/WXDashboard/assets/deployed.jpg)

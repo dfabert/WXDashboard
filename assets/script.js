@@ -109,7 +109,7 @@ function generateForecast(cityName){
                         var weekDay = fcstDate.getDay();
                     var fcstDay = daysOfWeek[weekDay];
                     var fcstIcon = response.daily[i].weather[0].icon;
-                    var fcstTemp = Math.round(100-(response.daily[i].temp.day - 273.15)*9/5+32);
+                    var fcstTemp = Math.round((response.daily[i].temp.day - 273.15)*9/5+32);
                     var fcstHumid = response.daily[i].humidity;
 
                     var forecastCard = $('<div>');
