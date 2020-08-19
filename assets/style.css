@@ -23,6 +23,7 @@ body{
     margin: 1%;
     width: fit-content;
     margin: auto;
+    padding: 3px;
 }
 
 #forecast {
