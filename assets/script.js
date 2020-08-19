@@ -21,8 +21,6 @@ function generateForecast(cityName){
         var lat = response.coord.lat;
         var long = response.coord.lon;
 
-        console.log(lat, long);
-
         var URL = "https://api.openweathermap.org/data/2.5/onecall?"
                     + "lat=" + lat
                     + "&lon=" + long
@@ -32,7 +30,7 @@ function generateForecast(cityName){
             url: URL,
             method: "GET"
             }).then(function(response) {
-
+                $('input:text').val(' ');   
                 $('#current').empty();
                 $('#forecast').empty();
 
@@ -105,6 +103,7 @@ function generateForecast(cityName){
 
                 //Pull forecast data
                 for(var i = 1; i < 6; i++){
+
                     var fcstDate = new Date((response.daily[i].dt)*1000)
                         var weekDay = fcstDate.getDay();
                     var fcstDay = daysOfWeek[weekDay];
@@ -163,7 +162,6 @@ $('#addCity').on('click', function(event)  {
     
     //Put city in local storage
     var storedCities = JSON.parse(localStorage.getItem('storedCities')) || [];
-    console.log(storedCities);
     storedCities.push(cityName);
     localStorage.setItem('storedCities',JSON.stringify(storedCities));
 
@@ -172,7 +170,7 @@ $('#addCity').on('click', function(event)  {
     generateForecast(cityName);
 })
 
-//Listen for previous cities
+//Listen for new cities
 $(document).on('click', '.cityButton',function(event){
     var cityName = $(this).attr('data-city');
     console.log('Recalling Forecast for ' + cityName);
